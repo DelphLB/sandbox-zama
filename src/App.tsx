@@ -1,35 +1,58 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { Routes, Route, Link } from "react-router-dom";
+import { useAuth } from "./context/AuthContext";
 
-function App() {
-  const [count, setCount] = useState(0)
+function Dashboard() {
+  const { signOut } = useAuth();
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
+    <div className="container">
       <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
+        <h2>Dashboard</h2>
+        <p>Bienvenue dans la sandbox 👋</p>
+        <button className="btn" onClick={signOut}>
+          Sign out
         </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
       </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    </div>
+  );
 }
 
-export default App
+function SignIn() {
+  const { signIn } = useAuth();
+  const email = "demo@test.com";
+
+  return (
+    <div className="container">
+      <div className="card" style={{ maxWidth: 400 }}>
+        <h2>Sign in</h2>
+        <p>Mock (email prérempli)</p>
+        <button className="btn" onClick={() => signIn(email)}>
+          Continue as {email}
+        </button>
+      </div>
+    </div>
+  );
+}
+
+export default function App() {
+  return (
+    <>
+      <header>
+        <Link to="/" style={{ fontWeight: 700 }}>
+          Sandbox Console
+        </Link>
+        <nav>
+          <Link to="/">Dashboard</Link>
+          <Link to="/signin">Sign In</Link>
+        </nav>
+      </header>
+
+      <main>
+        <Routes>
+          <Route path="/" element={<Dashboard />} />
+          <Route path="/signin" element={<SignIn />} />
+        </Routes>
+      </main>
+    </>
+  );
+}

@@ -1,0 +1,227 @@
+:root {
+  --bg: #0d0e13;
+  --bg-card: #151821;
+  --bg-card-hover: #1b1f2c;
+  --border: #2a2f3d;
+  --border-light: #353c4f;
+  --text: #e8ebf2;
+  --text-dim: #9ca3b8;
+  --accent: #9b8aff;            
+  --accent-hover: #b4a7ff;
+  --danger: #ef6262;
+  --radius: 4px;               
+  --shadow: 0 2px 6px rgba(0, 0, 0, 0.25);
+
+  --space-xs: 4px;
+  --space-sm: 8px;
+  --space-md: 16px;
+  --space-lg: 24px;
+  --transition: 0.2s ease;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Ubuntu, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  line-height: 1.6;
+}
+
+/* ===========================
+   Typography
+   =========================== */
+
+h1, h2, h3, h4 {
+  font-weight: 600;
+  margin: 0 0 var(--space-sm);
+}
+
+h1 { font-size: 2rem; }
+h2 { font-size: 1.5rem; }
+h3 { font-size: 1.2rem; }
+
+p {
+  margin: 0 0 var(--space-md);
+  color: var(--text-dim);
+}
+
+/* ===========================
+   Layout helpers
+   =========================== */
+
+.container {
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: var(--space-lg);
+}
+
+.flex {
+  display: flex;
+  align-items: center;
+}
+
+.space-between {
+  justify-content: space-between;
+}
+
+/* ===========================
+   Cards
+   =========================== */
+
+.card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: var(--space-lg);
+  box-shadow: var(--shadow);
+  transition: border-color var(--transition), background var(--transition), transform var(--transition);
+}
+
+.card:hover {
+  border-color: var(--accent);
+  background: var(--bg-card-hover);
+  transform: translateY(-1px);
+}
+
+/* ===========================
+   Buttons
+   =========================== */
+
+.btn {
+  background: var(--accent);
+  color: #fff;
+  border: none;
+  border-radius: var(--radius);
+  padding: 8px 16px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background var(--transition), transform 0.1s ease;
+  font-family: inherit;
+  letter-spacing: 0.2px;
+}
+
+.btn:hover {
+  background: var(--accent-hover);
+  transform: translateY(-1px);
+}
+
+.btn:active {
+  transform: translateY(0);
+}
+
+.btn-danger {
+  background: var(--danger);
+}
+
+.btn-danger:hover {
+  background: #d9534f;
+}
+
+/* ===========================
+   Inputs
+   =========================== */
+
+.input {
+  width: 100%;
+  background: #121420;
+  color: var(--text);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius);
+  padding: 10px 12px;
+  font-family: inherit;
+  transition: border-color var(--transition), background var(--transition);
+}
+
+.input:focus {
+  border-color: var(--accent);
+  background: #161927;
+  outline: none;
+}
+
+/* ===========================
+   Header / Navigation
+   =========================== */
+
+header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-md) var(--space-lg);
+  border-bottom: 1px solid var(--border);
+  background: rgba(13, 14, 19, 0.8);
+  backdrop-filter: blur(6px);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+header a {
+  color: var(--text);
+  text-decoration: none;
+  margin-right: var(--space-md);
+  font-weight: 500;
+  transition: color var(--transition);
+}
+
+header a:hover {
+  color: var(--accent);
+}
+
+/* ===========================
+   Tables (Usage page)
+   =========================== */
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: var(--space-md);
+  font-size: 0.95rem;
+}
+
+.table th, .table td {
+  padding: 10px;
+  border-bottom: 1px solid var(--border-light);
+  text-align: left;
+}
+
+.table th {
+  color: var(--text);
+  font-weight: 500;
+  background: var(--bg-card-hover);
+}
+
+.table tbody tr:hover {
+  background: #191d2c;
+}
+
+/* ===========================
+   Utility classes
+   =========================== */
+
+.text-accent { color: var(--accent); }
+.text-danger { color: var(--danger); }
+.rounded { border-radius: var(--radius); }
+.shadow { box-shadow: var(--shadow); }
+
+.fade-in {
+  animation: fadeIn 0.3s ease forwards;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(4px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ===========================
+   Compact mode (feature flag)
+   =========================== */
+
+[data-compact="true"] .card { padding: var(--space-md); }
+[data-compact="true"] header { padding: var(--space-sm) var(--space-md); }
+[data-compact="true"] .container { padding: var(--space-md); }
