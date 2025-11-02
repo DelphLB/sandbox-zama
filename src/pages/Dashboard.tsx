@@ -7,7 +7,7 @@ export default function Dashboard() {
           This developer console lets you simulate how an API gateway works.
           You generate fake API keys, and explore synthetic usage
           analytics.  
-          <br /><br />Nothing leaves your machine.
+          <br /><br />All data is stored locally on your browser.
         </p>
         <p style={{ marginTop: 20 }}>
           👉 Try creating a key in the <strong>API Keys</strong> section,  
