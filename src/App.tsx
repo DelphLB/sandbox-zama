@@ -20,9 +20,9 @@ export default function App() {
         </Link>
         <nav style={{ display: "flex", alignItems: "center", gap: 16 }}>
           <Link to="/">Dashboard</Link>
-          <Link to="/usage">Usage</Link>
+          <Link to="/usage" data-testid="nav-usage">Usage</Link>
           <Link to="/docs">Docs</Link>
-          <Link to="/keys">API Keys</Link>
+          <Link to="/keys" data-testid="nav-keys">API Keys</Link>
           {!isAuthed && <Link to="/signin">Sign In</Link>}
           {isAuthed && (
             <button

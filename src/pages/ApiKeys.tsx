@@ -20,7 +20,7 @@ export default function ApiKeys() {
           Create and manage your sandbox API keys. Keys are stored locally.
         </p>
 
-        <button className="btn" onClick={createKey}>
+        <button className="btn" data-testid="keys-create" onClick={createKey}>
           + Create Key
         </button>
 
@@ -43,7 +43,7 @@ export default function ApiKeys() {
             )}
 
             {keys.map((k) => (
-              <tr key={k.id}>
+              <tr key={k.id} data-testid={`key-row-${k.id}`}>
                 <td>{k.label}</td>
                 <td>
                   <code style={{ userSelect: "none" }}>
@@ -57,23 +57,28 @@ export default function ApiKeys() {
                   <div style={{ display: "inline-flex", gap: 8 }}>
                     <button
                       className="btn"
-                      style={{ width: 78 }}
+                      data-testid={`key-reveal-${k.id}`}
                       onClick={() => toggleReveal(k.id)}
                     >
                       {k.revealed ? "Hide" : "Reveal"}
                     </button>
                     <button
                       className="btn"
+                      data-testid={`key-copy-${k.id}`}
                       onClick={() => copy(k.value)}
-                      disabled={!!copied && copied === k.value}
                     >
-                      {copied === k.value ? "Copied" : "Copy"}
+                      {copied === k.value ? "Copied!" : "Copy"}
                     </button>
-                    <button className="btn" onClick={() => regenerateKey(k.id)}>
+                    <button
+                      className="btn"
+                      data-testid={`key-regen-${k.id}`}
+                      onClick={() => regenerateKey(k.id)}
+                    >
                       Regenerate
                     </button>
                     <button
                       className="btn btn-danger"
+                      data-testid={`key-revoke-${k.id}`}
                       onClick={() => revokeKey(k.id)}
                     >
                       Revoke
