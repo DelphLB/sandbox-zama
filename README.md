@@ -1,4 +1,4 @@
-SANDBOX CONSOLE - https://sandbox-zama-app.vercel.app/
+SANDBOX CONSOLE - https://sandbox-zama.vercel.app/
 
 A small developer-facing console built for the Zama technical challenge.
 It simulates a gateway interface where users can sign in, manage fake API keys, and view basic usage analytics — all with synthetic, client-side data only.

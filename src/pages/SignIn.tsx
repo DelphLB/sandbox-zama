@@ -36,7 +36,6 @@ export default function SignIn() {
         >
           Continue
         </button>
-        <p style={{ opacity: 0.8 }}>Sign In</p>
       </div>
     </div>
   );

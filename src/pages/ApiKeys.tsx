@@ -1,4 +1,4 @@
-import { useClipboard } from "../hooks/useClipboard.tsx";
+import { useClipboard } from "../hooks/useClipboard";
 import { useApiKeys } from "../hooks/useApiKeys";
 
 function maskKey(key: string) {
