@@ -1,9 +1,23 @@
+import { useLocation, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import { useState } from "react";
 
+interface LocationState {
+  from?: Location;
+}
+
 export default function SignIn() {
+  const nav = useNavigate();
+  const loc = useLocation();
   const { signIn } = useAuth();
-  const [email, setEmail] = useState("demo@acme.dev");
+  const [email, setEmail] = useState("demo@test.com");
+
+  const from = (loc.state as LocationState)?.from?.pathname || "/";
+  console.log(loc.state);
+  function handleSignIn() {
+    signIn(email);
+    nav(from, { replace: true });
+  }
 
   return (
     <div className="container" style={{ maxWidth: 420 }}>
@@ -15,7 +29,7 @@ export default function SignIn() {
           value={email}
           onChange={(e) => setEmail(e.target.value)}
         />
-        <button className="btn" onClick={() => signIn(email)}>
+        <button className="btn" onClick={() => handleSignIn()}>
           Continue
         </button>
         <p style={{ opacity: 0.8 }}>Sign In</p>
