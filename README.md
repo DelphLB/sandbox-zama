@@ -1,7 +1,7 @@
 SANDBOX CONSOLE - https://sandbox-zama.vercel.app/
 
 A small developer-facing console built for the Zama technical challenge.
-It simulates a gateway interface where users can sign in, manage fake API keys, and view basic usage analytics — all with synthetic, client-side data only.
+It simulates a gateway interface where users can sign in, manage fake API keys, and view basic usage analytics, all with synthetic client-side data only.
 
 🚀 Stack
 
@@ -24,7 +24,7 @@ Minimal CSS: no framework, reusable classes for consistency.
 
 All analytics are fully synthetic.
 A small local JSON file (usage-data.json) provides daily request counts and status codes.
-API keys are generated locally using a simple utility that encodes a random UUID — no external service is ever called.
+API keys are generated locally using a simple utility that encodes a random UUID
 
 A visible toggle called “Compact mode” simulates a feature rollout.
 When enabled, it reduces paddings and margins across the UI, illustrating how a product team could gradually release layout changes or new display modes without redeploying the whole app.
