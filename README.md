@@ -1,73 +1,52 @@
-# React + TypeScript + Vite
+SANDBOX CONSOLE
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A small developer-facing console built for the Zama technical challenge.
+It simulates a gateway interface where users can sign in, manage fake API keys, and view basic usage analytics — all with synthetic, client-side data only.
 
-Currently, two official plugins are available:
+🚀 Stack
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+React 18 + TypeScript – SPA with simple state management via hooks
+Vite – lightweight, fast local dev setup
+Playwright – end-to-end tests covering happy paths
+LocalStorage – persistent mock data, no backend
+Chart.js – simple analytics visualization
+Vercel – for easy deployment and preview
 
-## React Compiler
+🧭 Design decisions
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+Local-first approach: all data (auth, keys, usage) is generated client-side for speed and isolation.
+Hooks & separation of concerns: stateful logic decoupled from rendering.
+Simulates an actual backend API through localStorage updates.
+Playwright testing: each user path behaves like a real session.
+Minimal CSS: no framework, reusable classes for consistency.
 
-## Expanding the ESLint configuration
+✨ Data and feature flag
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+All analytics are fully synthetic.
+A small local JSON file (usage-data.json) provides daily request counts and status codes.
+API keys are generated locally using a simple utility that encodes a random UUID — no external service is ever called.
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+A visible toggle called “Compact mode” simulates a feature rollout.
+When enabled, it reduces paddings and margins across the UI, illustrating how a product team could gradually release layout changes or new display modes without redeploying the whole app.
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+🧠 If I had more time
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+Add unit tests for pure logic (e.g. generateKey() or a reducer version of API keys).
+Implement mobile-first responsive layout and improve accessibility contrast.
+Add real routing protection (redirects for expired mock tokens).
+Extend the feature flag system to simulate multiple rollout scenarios (e.g. new analytics view).
+Enrich analytics with more synthetic dimensions (status codes, latency, etc.).
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+🤖 AI coding assistance
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+Used ChatGPT (GPT-5) as a coding assistant for refactors, hooks, and test debugging.s.
+Some generated solutions were over-engineered or visually inconsistent.
+Helpful for speed and structure final design choices were human-driven.
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+🧩 Run locally
+
+pnpm install
+pnpm dev        # start dev server (localhost:5173)
+pnpm build      # build for production
+pnpm preview    # preview build on localhost:4173
+pnpm test:e2e   # run Playwright tests
