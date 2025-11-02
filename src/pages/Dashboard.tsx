@@ -1,9 +1,18 @@
 export default function Dashboard() {
   return (
-    <div className="container" style={{ display: "grid", gap: 16 }}>
+    <div className="container">
       <div className="card">
-        <h3 style={{ marginTop: 0 }}>Welcome</h3>
-        <p>Mini Sandbox </p>
+        <h2>Welcome to the Sandbox Console</h2>
+        <p style={{ opacity: 0.85, maxWidth: 640 }}>
+          This developer console lets you simulate how an API gateway works.
+          You generate fake API keys, and explore synthetic usage
+          analytics.
+          All data is stored locally on your browser.
+        </p>
+        <p style={{ marginTop: 20 }}>
+          👉 Try creating a key in the <strong>API Keys</strong> section,  
+          or check out your <strong>Usage</strong> data and <strong>Docs</strong> quickstart examples.
+        </p>
       </div>
     </div>
   );
