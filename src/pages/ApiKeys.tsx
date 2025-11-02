@@ -3,7 +3,6 @@ import { useApiKeys } from "../hooks/useApiKeys";
 
 function maskKey(key: string) {
   if (!key) return "";
-  // masque plus long pour éviter les sauts visuels
   return `${key.slice(0, 6)}${"•".repeat(20)}${key.slice(-4)}`;
 }
 
