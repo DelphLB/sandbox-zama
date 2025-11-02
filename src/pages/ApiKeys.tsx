@@ -1,80 +1,17 @@
-import { useEffect, useState } from "react";
-
-type ApiKey = {
-  id: string;
-  label: string;
-  value: string;
-  createdAt: string;
-  revealed?: boolean;
-};
-
-const STORAGE_KEY = "sandbox_api_keys";
-
-function base64url(bytes: Uint8Array) {
-  return btoa(String.fromCharCode(...bytes))
-    .replace(/\+/g, "-")
-    .replace(/\//g, "_")
-    .replace(/=+$/, "");
-}
-
-function generateApiKey(prefix = "sk_live_") {
-  const bytes = new Uint8Array(24);
-  crypto.getRandomValues(bytes);
-  return prefix + base64url(bytes);
-}
+import { useClipboard } from "../hooks/useClipboard.tsx";
+import { useApiKeys } from "../hooks/useApiKeys";
 
 function maskKey(key: string) {
-  if (!key) return '';
-  return `${key.slice(0, 6)}${'•'.repeat(20)}${key.slice(-4)}`;
+  if (!key) return "";
+  // masque plus long pour éviter les sauts visuels
+  return `${key.slice(0, 6)}${"•".repeat(20)}${key.slice(-4)}`;
 }
 
 export default function ApiKeys() {
-  const [keys, setKeys] = useState<ApiKey[]>(() => {
-    const stored = localStorage.getItem(STORAGE_KEY);
-    return stored ? JSON.parse(stored) : [];
-  });
+  const { keys, createKey, revokeKey, regenerateKey, toggleReveal } =
+    useApiKeys();
 
-  const [copiedKey, setCopiedKey] = useState<string | null>(null);
-
-  useEffect(() => {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(keys));
-  }, [keys]);
-
-  function createKey() {
-    const id = crypto.randomUUID();
-    const label = `Key-${keys.length + 1}`;
-    const value = generateApiKey();
-    const createdAt = new Date().toISOString();
-    setKeys([...keys, { id, label, value, createdAt, revealed: false }]);
-  }
-
-  function revokeKey(id: string) {
-    setKeys(keys.filter((k) => k.id !== id));
-  }
-
-  function regenerateKey(id: string) {
-    setKeys((prev) =>
-      prev.map((k) =>
-        k.id === id ? { ...k, value: generateApiKey(), revealed: false } : k
-      )
-    );
-  }
-
-  async function copyKey(value: string) {
-    try {
-      await navigator.clipboard.writeText(value);
-      setCopiedKey(value);
-      setTimeout(() => setCopiedKey(null), 1500);
-    } catch {
-      console.error("Clipboard error");
-    }
-  }
-
-  function toggleReveal(id: string) {
-    setKeys((prev) =>
-      prev.map((k) => (k.id === id ? { ...k, revealed: !k.revealed } : k))
-    );
-  }
+  const { copied, error, copy } = useClipboard();
 
   return (
     <div className="container">
@@ -121,13 +58,17 @@ export default function ApiKeys() {
                   <div style={{ display: "inline-flex", gap: 8 }}>
                     <button
                       className="btn"
+                      style={{ width: 78 }}
                       onClick={() => toggleReveal(k.id)}
-                      style={{ width: 78 }} // largeur fixe pour stabilité
                     >
                       {k.revealed ? "Hide" : "Reveal"}
                     </button>
-                    <button className="btn" onClick={() => copyKey(k.value)}>
-                      {copiedKey === k.value ? "Copied!" : "Copy"}
+                    <button
+                      className="btn"
+                      onClick={() => copy(k.value)}
+                      disabled={!!copied && copied === k.value}
+                    >
+                      {copied === k.value ? "Copied" : "Copy"}
                     </button>
                     <button className="btn" onClick={() => regenerateKey(k.id)}>
                       Regenerate
@@ -144,6 +85,12 @@ export default function ApiKeys() {
             ))}
           </tbody>
         </table>
+
+        {error && (
+          <p style={{ color: "red", marginTop: 10 }}>
+            Clipboard error: {error}
+          </p>
+        )}
       </div>
     </div>
   );
