@@ -6,6 +6,7 @@ import { useAuth } from "./context/AuthContext";
 import { useFeatureFlags } from "./components/FeatureFlagContext";
 import ApiKeys from "./pages/ApiKeys";
 import Usage from "./pages/Usage";
+import Docs from "./pages/Docs";
 
 export default function App() {
   const { isAuthed, signOut } = useAuth();
@@ -20,6 +21,7 @@ export default function App() {
         <nav style={{ display: "flex", alignItems: "center", gap: 16 }}>
           <Link to="/">Dashboard</Link>
           <Link to="/usage">Usage</Link>
+          <Link to="/docs">Docs</Link>
           <Link to="/keys">API Keys</Link>
           {!isAuthed && <Link to="/signin">Sign In</Link>}
           {isAuthed && (
@@ -68,7 +70,14 @@ export default function App() {
               </ProtectedRoute>
             }
           />
-
+          <Route
+            path="/docs"
+            element={
+              <ProtectedRoute>
+                <Docs />
+              </ProtectedRoute>
+            }
+          />
           <Route path="/signin" element={<SignIn />} />
         </Routes>
       </main>
