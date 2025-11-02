@@ -65,7 +65,10 @@ export default function Usage() {
           <p>No usage data available.</p>
         ) : (
           <>
-            <div style={{ width: "100%", height: 300 }}>
+            <div
+              style={{ width: "100%", height: 300 }}
+              data-testid="usage-chart"
+            >
               <ResponsiveContainer>
                 <LineChart
                   data={data}

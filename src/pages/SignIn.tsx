@@ -13,7 +13,6 @@ export default function SignIn() {
   const [email, setEmail] = useState("demo@test.com");
 
   const from = (loc.state as LocationState)?.from?.pathname || "/";
-  console.log(loc.state);
   function handleSignIn() {
     signIn(email);
     nav(from, { replace: true });
@@ -25,11 +24,16 @@ export default function SignIn() {
       <div className="card" style={{ display: "grid", gap: 8 }}>
         <label>Email</label>
         <input
+          data-testid="signin-email"
           className="input"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
         />
-        <button className="btn" onClick={() => handleSignIn()}>
+        <button
+          data-testid="signin-continue"
+          className="btn"
+          onClick={() => handleSignIn()}
+        >
           Continue
         </button>
         <p style={{ opacity: 0.8 }}>Sign In</p>
